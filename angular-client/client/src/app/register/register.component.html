@@ -1,0 +1,26 @@
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <form #registerForm="ngForm" (ngSubmit)="OnSubmit(registerForm)">
+          <h2 class="card-title">Sign Up</h2>
+          <div >
+            <input type="text" ngModel required class="form-control" name="Username" #username="ngModel" placeholder="Email">
+          </div>
+          <div >
+            <input type="password" ngModel required class="form-control" name="Password" #password="ngModel"  placeholder="Password">
+          </div>
+          <div >
+            <input type="tel" pattern="[0]{1}[5]{1}[0-9]{1}-[0-9]{7}"  required ngModel class="form-control" name="Phone" #phone="ngModel"  placeholder="Phone">
+          </div>
+          <input [disabled]="registerForm.valid" type="submit" class="btn btn-block btn-success" value="Submit">
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</body>

@@ -1,0 +1,24 @@
+.card{
+    width: 400px;
+    height: 70vh;
+    margin-top: 70px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    background-color: darkcyan;
+    max-width: 100%;
+    height: 100vh;
+  }
+
+  .form-control {
+    margin-top: 4px;
+}
+
+.btn-success {
+    margin-top: 5px;
+    position: relative;
+    width: 20%;
+}

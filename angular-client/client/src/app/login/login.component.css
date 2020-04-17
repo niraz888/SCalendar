@@ -1,0 +1,38 @@
+html,body {
+    height: 100%;
+    margin: auto;
+    width: 100vw;
+}
+.container {
+    background-image: url('src/assets/login.jpg');
+    background-size: cover;
+    position:absolute;
+    max-width: 100%;
+    padding:0;
+    margin:0;
+    
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+     /* Added */
+    margin-top: 70px;
+}
+
+.btn-success {
+    margin-top: 5px;
+}
+
+.form-control {
+    margin-top: 4px;
+}

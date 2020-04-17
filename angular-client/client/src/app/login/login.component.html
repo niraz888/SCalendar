@@ -1,0 +1,29 @@
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="card" style="width:400px">
+      <div class="card-body">
+        <form #loginForm="ngForm" (ngSubmit)="OnSubmit(loginForm)">
+        <h2 class="card-title">Login</h2>
+        <div >
+          <input type="email" ngModel required class="form-control" name="Email" #email="ngModel" placeholder="Email">
+        </div>
+        <div >
+          <input type="password" ngModel required class="form-control" name="Password" #password="ngModel"  placeholder="Password">
+        </div>
+        <input type="submit" class="btn btn-success" value="Submit">
+      </form>
+      </div>
+    </div>
+    <div class="card" style="width:400px">
+      <div class="card-body">
+        <h4 class="card-title">Sign Up</h4>
+        <p class="card-text">Hurry up and sign for SmartCalender!</p>
+        <a href="/register" class="btn btn-primary">Register</a>
+      </div>
+    </div>
+  </div>
+</body>
+

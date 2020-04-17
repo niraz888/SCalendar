@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { ServerService } from '../server.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { ServerService } from '../server.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private server: ServerService) { }
+  constructor(private router: Router,private server: ServerService) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
             alert('Error!');
           } else {
             alert(data[0])
+            this.router.navigateByUrl('/dashboard')
           }
         },
         err => {

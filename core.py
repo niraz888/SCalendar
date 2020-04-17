@@ -70,6 +70,20 @@ def login():
     else:
         return 'Error with Connection'
     
+@api.route('/api/add_event', methods=['POST'])
+def add_event():
+    event_name = request.form['event_name']
+    start = request.form['start_time']
+    end = request.form['end_time']
+    description = request.form['description']
+    user_id = request.form['user_id']
+    con = SqlConnection()
+    res = con.add_event(event_name, start, end, description, user_id)
+    if res == Result.SUCCESS:
+        return jsonify('Event added Successfully')
+    else:
+        return jsonfiy('Error in adding Event')
+    
 
 
 

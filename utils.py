@@ -93,3 +93,16 @@ class SqlConnection(object):
         finally:
             self.db.close()
             return res
+    
+    def add_event(self, name, start, end, desc, user_id):
+        res = Result.SUCCESS
+        cur = self.db.cursor()
+        sql_command = "INSERT INTO events (name, start, end, description, user_id) VALUES ('"+str(name) + "','" + str(start) + "','" + str(end) + "','" + str(desc) + "','" + str(user_id) + "')"
+        try:
+            cur.execute(sql_command)
+            self.db.commit()
+        except Exception as e:
+            res = Result.PROCESS_ERROR
+        finally:
+            self.db.close()
+            return res

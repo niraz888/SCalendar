@@ -14,3 +14,16 @@ td { width: 14.285%; transition: all 0.3s; font-size: 14px; color: rgba(255,255,
 
 span.number { margin-left: 10% }
 
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 3px;
+  }
+
+  .events {
+      margin-left: 5px;
+      margin-top: 10px;
+  }

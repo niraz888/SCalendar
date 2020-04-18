@@ -11,7 +11,14 @@
     <th class="day-name">Sat</th>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:0:7;" class="day"><span class="number">{{d}}</span></td>
+    <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day">
+      <span class="number">{{d}}</span>
+      <div class="events">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    </td>
   </tr>
   <tr>
     <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">{{d}}</span></td>

@@ -8,14 +8,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ServerService} from './server.service';
 import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component'
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CalendarComponent } from './calendar/calendar.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

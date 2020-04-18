@@ -1,0 +1,30 @@
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+
+<table style="margin-top: 30px;">
+  <tr>
+    <th class="day-name">Sun</th>
+    <th class="day-name">Mon</th>
+    <th class="day-name">Tue</th>
+    <th class="day-name">Wed</th>
+    <th class="day-name">Thu</th>
+    <th class="day-name">Fri</th>
+    <th class="day-name">Sat</th>
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:0:7;" class="day"><span class="number">{{d}}</span></td>
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">{{d}}</span></td>
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:14:21;" class="day"><span class="number">{{d}}</span></td>
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:21:28;" class="day"><span class="number">{{d}}</span></td>
+
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:28:34;" class="day"><span class="number">{{d}}</span></td>
+
+  </tr>
+</table>

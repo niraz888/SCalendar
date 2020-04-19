@@ -94,10 +94,10 @@ class SqlConnection(object):
             self.db.close()
             return res
     
-    def add_event(self, name, start, end, desc, user_id):
+    def add_event(self, name, start, end, desc, user_id, typeof):
         res = Result.SUCCESS
         cur = self.db.cursor()
-        sql_command = "INSERT INTO events (name, start, end, description, user_id) VALUES ('"+str(name) + "','" + str(start) + "','" + str(end) + "','" + str(desc) + "','" + str(user_id) + "')"
+        sql_command = "INSERT INTO events (name, start, end, description, user_id, type) VALUES ('"+str(name) + "','" + str(start) + "','" + str(end) + "','" + str(desc) + "','" + str(user_id) + "',' +" + str(typeof) + "')"
         try:
             cur.execute(sql_command)
             self.db.commit()
@@ -106,3 +106,13 @@ class SqlConnection(object):
         finally:
             self.db.close()
             return res
+    def get_events(self, user_id):
+        cur = self.db.cursor()
+        sql_command = "SELECT * FROM calender.events WHERE user_id = '" + str(user_id) + "'"
+        try:
+            cur.execute(sql_command)
+            result = cur.fetchall()
+            self.db.close()
+            return result
+        except Exception as e:
+            res = Result.PROCESS_ERROR

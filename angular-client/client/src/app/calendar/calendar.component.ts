@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit {
     var event1 = new Event('mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
     var event2 = new Event('meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
     var event3 = new Event('TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
-    var event4 = new Event('mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-02 12:30:00"));
+    var event4 = new Event('mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
     this.events.push(event1);
     this.events.push(event2);
     this.events.push(event3);

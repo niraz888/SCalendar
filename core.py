@@ -77,12 +77,22 @@ def add_event():
     end = request.form['end_time']
     description = request.form['description']
     user_id = request.form['user_id']
+    typeof = request.form['type']
     con = SqlConnection()
-    res = con.add_event(event_name, start, end, description, user_id)
+    res = con.add_event(event_name, start, end, description, user_id, typeof)
     if res == Result.SUCCESS:
         return jsonify('Event added Successfully')
     else:
         return jsonfiy('Error in adding Event')
+
+@api.route('/api/get_events', methods=['GET'])
+def get_events():
+    user_id = request.args.get("user_id")
+    con = SqlConnection()
+    res = con.get_events(user_id)
+    return jsonify(res)
+
+    
     
 
 

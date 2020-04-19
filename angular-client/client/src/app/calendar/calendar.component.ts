@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {EventType, Event} from '../event'
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -10,6 +10,7 @@ export class CalendarComponent implements OnInit {
   current_year = 0
   current_month = 0
   calendar = []
+  events = [];
   constructor() { }
 
   ngOnInit() {
@@ -25,6 +26,23 @@ export class CalendarComponent implements OnInit {
     for(j = 1; j < count + 1;j++) {
       this.calendar.push(j)
     } 
-  }
+    var event1 = new Event('mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
+    var event2 = new Event('meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
+    var event3 = new Event('TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
+    var event4 = new Event('mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-02 12:30:00"));
+    this.events.push(event1);
+    this.events.push(event2);
+    this.events.push(event3);
+    this.events.push(event4);
 
+  }
+  getColor(type:EventType){
+    if (type == EventType.birthday) {
+      return 'red';
+    } else if (type == EventType.business) {
+      return 'purple';
+    } else if (type == EventType.TvShow) {
+      return 'blue';
+    }
+  }
 }

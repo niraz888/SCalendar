@@ -1,5 +1,3 @@
-<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
-
 <table style="margin-top: 30px;">
   <tr>
     <th class="day-name">Sun</th>
@@ -11,12 +9,16 @@
     <th class="day-name">Sat</th>
   </tr>
   <tr>
+
     <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day">
       <span class="number">{{d}}</span>
       <div class="events">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+        <div *ngFor="let e of events">
+          <a mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
     </div>
     </td>
   </tr>

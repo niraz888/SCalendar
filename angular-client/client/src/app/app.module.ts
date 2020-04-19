@@ -10,6 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component'
+import {MatTooltipModule} from '@angular/material/tooltip'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { CalendarComponent } from './calendar/calendar.component'
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]

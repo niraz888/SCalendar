@@ -74,6 +74,7 @@ class SqlConnection(object):
 
     def authenticate_user(self, username, password):
         res = 1
+        user_id = None
         cur = self.db.cursor()
         sql_command = "SELECT * FROM calender.users WHERE username='%s'" % (username)
         try:
@@ -82,8 +83,10 @@ class SqlConnection(object):
             d = result[2]
             if result == None:
                 res = Result.LOGIC_ERROR
+                user_id = 0
             elif check_password_hash(result[2], password):
                 res = Result.SUCCESS
+                user_id = result[0]
             else:
                 res = Result.LOGIC_ERROR               
         except Exception as e:
@@ -92,7 +95,7 @@ class SqlConnection(object):
             res = Result.PROCESS_ERROR
         finally:
             self.db.close()
-            return res
+            return res, user_id
     
     def add_event(self, name, start, end, desc, user_id, typeof):
         res = Result.SUCCESS
@@ -106,9 +109,10 @@ class SqlConnection(object):
         finally:
             self.db.close()
             return res
-    def get_events(self, user_id):
+
+    def get_events(self, user_id, year, month):
         cur = self.db.cursor()
-        sql_command = "SELECT * FROM calender.events WHERE user_id = '" + str(user_id) + "'"
+        sql_command = "SELECT * FROM calender.events WHERE user_id = '" + str(user_id) + "' AND events.start LIKE '" + str(year) + "-" + str(month) + "%'"
         try:
             cur.execute(sql_command)
             result = cur.fetchall()

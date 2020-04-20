@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  private username: string;
   constructor() { }
 
   ngOnInit() {
+    this.username = localStorage.getItem('username')
   }
 
+  ngOnDestroy(){
+    localStorage.clear();
+    console.log("bye byle");
+
+  }
 }

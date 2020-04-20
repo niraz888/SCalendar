@@ -62,11 +62,11 @@ def login():
     password = request.form['password']
     username = request.form['username']
     con = SqlConnection()
-    res = con.authenticate_user(username, password)
+    res, user_id = con.authenticate_user(username, password)
     if res == Result.SUCCESS:
-        return jsonify('good')
+        return jsonify(user_id)
     elif res == Result.LOGIC_ERROR:
-        return 'username or password invalid'
+        return jsonify('username or password invalid')
     else:
         return 'Error with Connection'
     
@@ -88,8 +88,10 @@ def add_event():
 @api.route('/api/get_events', methods=['GET'])
 def get_events():
     user_id = request.args.get("user_id")
+    year = request.args.get("year")
+    month = request.args.get("month")
     con = SqlConnection()
-    res = con.get_events(user_id)
+    res = con.get_events(user_id, year, month)
     return jsonify(res)
 
     

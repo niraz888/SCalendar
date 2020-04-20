@@ -22,8 +22,14 @@ export class LoginComponent implements OnInit {
           if (data.error == true){
             alert('Error!');
           } else {
-            alert(data[0])
-            this.router.navigateByUrl('/dashboard')
+            if (data == 'username or password invalid') {
+              alert('username or password invalid');
+              this.router.navigateByUrl('/login');
+            } else{
+              localStorage.setItem('username', f.value.Email)
+              localStorage.setItem('user_id', data)
+              this.router.navigateByUrl('/dashboard')
+            }
           }
         },
         err => {

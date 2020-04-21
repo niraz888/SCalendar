@@ -1,12 +1,24 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<body>
 <div>
   <span class="dot" style="background-color: red;"></span> Birthday
   <br>
   <span class="dot" style="background-color: purple;"></span> Business
   <br>
   <span class="dot" style="background-color: blue;"></span> Tv Show
-
+  <br>
+  <span class="dot" style="background-color: yellow;"></span> Concert
 </div>
+<div class="current-date">
+  <a class="display-1">{{this.current_month}}-</a>
+  <a class="display-2">{{this.current_year}}</a>
+</div>
+<button class="btn btn-primary" (click)="backward()" style="float: left;margin-left: 10em;">Backword</button>
+
+<button class="btn btn-primary" (click)="forward()" style="float: right;margin-right: 10em;">Forward</button>
 <table>
+
+
   <tr>
     <th class="day-name">Sun</th>
     <th class="day-name">Mon</th>
@@ -34,7 +46,17 @@
     <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">{{d}}</span></td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:14:21;" class="day"><span class="number">{{d}}</span></td>
+    <td *ngFor="let d of calendar | slice:14:21;" class="day">
+      <span class="number">{{d}}</span>
+      <div class="events">
+        <div *ngFor="let e of events;">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
+    </div>
+    </td>
   </tr>
   <tr>
     <td *ngFor="let d of calendar | slice:21:28;" class="day"><span class="number">{{d}}</span></td>
@@ -45,3 +67,7 @@
 
   </tr>
 </table>
+<div>
+  <h1></h1>
+</div>
+</body>

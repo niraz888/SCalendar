@@ -12,15 +12,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component'
 import {MatTooltipModule} from '@angular/material/tooltip'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {MatDialogModule} from '@angular/material/dialog'
 import 'hammerjs';
-
+import { EditDialogComponent } from './Dialog/edit-dialog/edit-dialog.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    CalendarComponent
+    CalendarComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,8 +35,13 @@ import 'hammerjs';
     HttpClientModule,
     MatTooltipModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [ServerService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditDialogComponent],
 })
 export class AppModule { }

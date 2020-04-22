@@ -35,7 +35,7 @@
       <div class="events">
         <div *ngFor="let e of events;">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
-          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+          <span (click)="openEditDialog(e)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
     </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {EventType, Event, lexicMonth} from '../event'
 import { ServerService } from '../server.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditDialogComponent } from '../Dialog/edit-dialog/edit-dialog.component';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -12,11 +15,30 @@ export class CalendarComponent implements OnInit {
   current_month = 0
   calendar = []
   events = [];
-  constructor(private server: ServerService) { }
+  constructor(public dialog:  MatDialog, private server: ServerService) { }
 
-  helo(){
-    console.log("hello");
+  openEditDialog(i:  Event): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      width: '450px',
+  
+      data: {name:'', description: '', start:'', end:'', type:1}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      var d = 3;
+      if (!result) {
+        return;
+      }
+  
+      /*
+      here we send the message to all members
+      */
+      var e = result.message;
+      var f =3;
+      console.log('The dialog was closed');
+    });
   }
+
   ngOnInit() {
     var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();

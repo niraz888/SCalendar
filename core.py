@@ -94,6 +94,22 @@ def get_events():
     res = con.get_events(user_id, year, month)
     return jsonify(res)
 
+@api.route('/api/edit_event', methods=['POST'])
+def edit_event():
+    if request.method == 'POST':
+        event_id = request.form['event_id']
+        event_name = request.form['name']
+        description = request.form['description']
+        start = request.form['start']
+        end = request.form['end']
+        event_type = request.form['type']
+        con = SqlConnection()
+        res = con.edit_event(event_id, event_name, description, start, end, event_type)
+        if res == Result.SUCCESS:
+            return jsonify('event updated successfully')
+        else:
+            return jsonify('error in updating event')
+
     
     
 

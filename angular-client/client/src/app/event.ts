@@ -1,15 +1,21 @@
 export class Event {
+    private event_id: Number
     private name: String;
     private description: String;
     private start: Date;
     //private end: Date;
     private type: EventType;
     private month: Number;
-    constructor(name: String, des: String, type: EventType, start:Date){
+    constructor(id: Number,name: String, des: String, type: EventType, start:Date){
+        this.event_id = id;
         this.name = name;
         this.description =des;
         this.type = type;
         this.start = start;
+    }
+
+    getID(){
+        return this.event_id;
     }
 }
 

@@ -120,3 +120,17 @@ class SqlConnection(object):
             return result
         except Exception as e:
             res = Result.PROCESS_ERROR
+    
+    def edit_event(self, event_id, name, desc, start, end, type_of):
+        cur = self.db.cursor()
+        res = None
+        sql_command = "UPDATE calender.events SET name='" + str(name)+ "', description='" + str(desc) +"', start='" + str(start) + "', end='" + str(end) + "', type='" + str(type_of) +"' WHERE event_id=" + str(event_id)
+        try:
+            cur.execute(sql_command)
+            self.db.commit()
+            res = Result.SUCCESS
+        except Exception as e:
+            res = Result.PROCESS_ERROR
+        finally:
+            self.db.close()
+            return res

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http'
+import { EventType } from './event';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,16 @@ export class ServerService {
     .set('month', n_month)
     .set('year', year.toString());
     return this.http.get(this.rootUrl + '/get_events', {params})
+  }
+
+  editEvent(event_id: number, name:string, desc:string, start:string, end:string, type:EventType) {
+    const postData = new FormData()
+    postData.append('event_id', event_id.toString());
+    postData.append('name', name);
+    postData.append('description', desc);
+    postData.append('start', start);
+    postData.append('end', end);
+    postData.append('type', type.toString());
+    return this.http.post(this.rootUrl + '/edit_event', postData);
   }
 }

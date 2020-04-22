@@ -33,9 +33,9 @@
     <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day">
       <span class="number">{{d}}</span>
       <div class="events">
-        <div *ngFor="let e of events;">
+        <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
-          <span (click)="openEditDialog(e)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
     </div>

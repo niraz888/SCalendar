@@ -17,25 +17,33 @@ export class CalendarComponent implements OnInit {
   events = [];
   constructor(public dialog:  MatDialog, private server: ServerService) { }
 
-  openEditDialog(i:  Event): void {
+  openEditDialog(i:  number): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '450px',
   
-      data: {name:'', description: '', start:'', end:'', type:1}
+      data: {name:'', description: '', start:'', end:'', type:1, index:i}
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      var d = 3;
       if (!result) {
         return;
       }
-  
-      /*
-      here we send the message to all members
-      */
-      var e = result.message;
-      var f =3;
+      this.sendEditEvent(this.events[i].getID(), result.name, result.description, result.start, result.end
+        ,result.type);
       console.log('The dialog was closed');
+    });
+  }
+
+  sendEditEvent(event_id: number, name:string, desc:string, start:string, end:string, type:EventType) {
+    this.server.editEvent(event_id, name, desc, start, end, type).subscribe((data:any) => {
+      if (data.error == true){
+        alert(data);
+      } else {
+        alert(data);
+      }
+    },
+    err => {
+      console.log('Error: ' + err.error);
     });
   }
 
@@ -54,10 +62,10 @@ export class CalendarComponent implements OnInit {
     for(j = 1; j < count + 1;j++) {
       this.calendar.push(j)
     } 
-    var event1 = new Event('mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
-    var event2 = new Event('meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
-    var event3 = new Event('TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
-    var event4 = new Event('mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
+    var event1 = new Event(2,'mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
+    var event2 = new Event(3,'meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
+    var event3 = new Event(4,'TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
+    var event4 = new Event(5,'mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
     this.events.push(event1);
     this.events.push(event2);
     this.events.push(event3);
@@ -125,7 +133,7 @@ export class CalendarComponent implements OnInit {
           var day = splitted[1];
           var hour = splitted[4]
           var date : string = year + "-" + month + "-" + day + " "+ hour;
-          var event = new Event(name, desc, type, new Date(date));
+          var event = new Event(event_id, name, desc, type, new Date(date));
           this.events.push(event)
         }
         var dsd = 3;

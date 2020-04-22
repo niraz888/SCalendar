@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Hello !</h1>
-<div mat-dialog-content style="background-color: lightcoral;"class="contentBox">
+<h1 mat-dialog-title>Edit Event</h1>
+<div mat-dialog-content style="background-color: white;"class="contentBox">
     
   <mat-form-field>
-    <p> name </p>
+    <p> Name </p>
     <input  matInput [(ngModel)]="data.name">
 
     </mat-form-field>
     <mat-form-field >
-      <p> description </p>
+      <p> Description </p>
     <input  matInput [(ngModel)]="data.description">
     </mat-form-field>
     <mat-form-field >
@@ -30,5 +30,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" >Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Create</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Edit</button>
 </div>

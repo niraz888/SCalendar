@@ -14,10 +14,11 @@ export class EditDialogComponent implements OnInit {
 
   selected = 'gello';
   types: TypeValue[] = [
-    {value: EventType.birthday, viewValue: 'BirthDay'},
+    {value: EventType.birthday, viewValue: 'Birthday'},
     {value: EventType.TvShow, viewValue: 'Tv Show'},
     {value: EventType.business, viewValue: 'Bussiness'},
-    {value: EventType.concert, viewValue: 'concert'}
+    {value: EventType.concert, viewValue: 'Concert'},
+    {value: EventType.other, viewValue:'Other'}
   ];
   ngOnInit(): void {
   }

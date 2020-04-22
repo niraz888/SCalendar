@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <body>
-<div>
+  <!--
+<div style="margin-left: 30px;border-color: black;border-style:solid;width: 10%;border-width:thin;">
+  <label style="text-align: center;">Dictionary</label>
+  <br>
   <span class="dot" style="background-color: red;"></span> Birthday
   <br>
   <span class="dot" style="background-color: purple;"></span> Business
@@ -8,13 +11,15 @@
   <span class="dot" style="background-color: blue;"></span> Tv Show
   <br>
   <span class="dot" style="background-color: yellow;"></span> Concert
+  <br>
+  <span class="dot" style="background-color: green;"></span> Other
 </div>
+-->
 <div class="current-date">
   <a class="display-1">{{this.current_month}}-</a>
   <a class="display-2">{{this.current_year}}</a>
 </div>
 <button class="btn btn-primary" (click)="backward()" style="float: left;margin-left: 10em;">Backword</button>
-
 <button class="btn btn-primary" (click)="forward()" style="float: right;margin-right: 10em;">Forward</button>
 <table>
 

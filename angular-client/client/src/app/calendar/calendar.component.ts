@@ -154,6 +154,8 @@ export class CalendarComponent implements OnInit {
       return 'blue';
     } else if (type == EventType.concert) {
       return 'yellow';
-    } 
+    } else {
+      return 'green';
+    }
   }
 }

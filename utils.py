@@ -105,8 +105,9 @@ class SqlConnection(object):
         sql_command = "INSERT INTO events (name, start, end, description, user_id, type) VALUES ('"+str(name) + "','" + str(start) + "','" + str(end) + "','" + str(desc) + "','" + str(user_id) + "',' +" + str(typeof) + "')"
         try:
             cur.execute(sql_command)
-            
             result = cur.lastrowid
+            if cur.rowcount:
+                self.db.commit()
         except Exception as e:
             res = Result.PROCESS_ERROR
         finally:

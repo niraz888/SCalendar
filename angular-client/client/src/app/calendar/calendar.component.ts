@@ -110,6 +110,10 @@ export class CalendarComponent implements OnInit {
     for(j = 1; j < count + 1;j++) {
       this.calendar.push(j)
     } 
+
+    this.getCurrentEvents();
+
+    /*
     var event1 = new Event(2,'mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
     var event2 = new Event(3,'meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
     var event3 = new Event(4,'TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
@@ -118,8 +122,11 @@ export class CalendarComponent implements OnInit {
     this.events.push(event2);
     this.events.push(event3);
     this.events.push(event4);
+    */
 
   }
+
+  
   change_month() {
     var first_day = new Date(this.current_year + "-" + this.current_month + "-01").getDay()
     var i = 0;

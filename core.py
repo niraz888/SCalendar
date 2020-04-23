@@ -72,6 +72,7 @@ def login():
     
 @api.route('/api/add_event', methods=['POST'])
 def add_event():
+    ids = None
     event_name = request.form['event_name']
     start = request.form['start_time']
     end = request.form['end_time']
@@ -79,9 +80,9 @@ def add_event():
     user_id = request.form['user_id']
     typeof = request.form['type']
     con = SqlConnection()
-    res = con.add_event(event_name, start, end, description, user_id, typeof)
+    res, ids = con.add_event(event_name, start, end, description, user_id, typeof)
     if res == Result.SUCCESS:
-        return jsonify('Event added Successfully')
+        return jsonify(ids)
     else:
         return jsonfiy('Error in adding Event')
 

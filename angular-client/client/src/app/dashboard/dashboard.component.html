@@ -2,12 +2,31 @@
 <div class="header">
   <a href="/dashboard" class="logo">SmartCalendar</a>
   <div class="header-right">
-    <a class="active" href="#home">Home</a>
+    <a class="dropdown">
+      <span>Dictionary</span>
+      <div class="dropdown-content">
+        <div class="dict-item">
+          Birthday <a style="background-color: red;"></a> 
+      </div>
+         <div class="dict-item">
+          Bussiness <a style="background-color: purple;"></a> 
+      </div>
+         <div class="dict-item">
+          Tv Show <a style="background-color: blue;"></a> 
+      </div >
+         <div class="dict-item">
+          Concert <a style="background-color: yellow;"></a> 
+      </div>
+         <div class="dict-item">
+          Other <a style="background-color: green;"></a> 
+      </div>
+      </div>
+    </a>
     <a href="/dashboard/settings">Settings</a>
     
     <a href="/login">Logout</a>
   </div>
 </div>
-<h1 style="margin: 20px;">Welcome {{username}}</h1>
+
 <router-outlet></router-outlet>
 </body>

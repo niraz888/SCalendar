@@ -38,7 +38,7 @@ export interface EditDialogData {
   type: EventType;
 }
 
-interface TypeValue {
+export interface TypeValue {
   value: EventType;
   viewValue: String;
 }

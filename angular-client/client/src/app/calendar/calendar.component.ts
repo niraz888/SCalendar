@@ -3,6 +3,7 @@ import {EventType, Event, lexicMonth} from '../event'
 import { ServerService } from '../server.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../Dialog/edit-dialog/edit-dialog.component';
+import { AddEventComponent } from '../Dialog/add-event/add-event.component';
 
 @Component({
   selector: 'app-calendar',
@@ -16,6 +17,53 @@ export class CalendarComponent implements OnInit {
   calendar = []
   events = [];
   constructor(public dialog:  MatDialog, private server: ServerService) { }
+
+  openAddDialog(day_of:  number): void {
+    const dialogRef = this.dialog.open(AddEventComponent, {
+      width: '450px',
+  
+      data: {name:'', description: '', start:'', end:'', type:1, day:day_of}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      let d = 32;
+      if (day_of < 10) {
+        var parse_day = "0" + day_of.toString()
+      } else{
+        var parse_day = day_of.toString()
+      }
+      
+      if (this.current_month < 10) {
+        var month = "0" + this.current_month.toString();
+      } else {
+        var month = this.current_month.toString();
+      }
+
+
+      var start_date = this.current_year + "-" + month + "-" + day_of + " " + result.start + ":00"
+      var end_date = this.current_year + "-" + month + "-" + day_of + " " + result.end + ":00";
+      this.sendAddEvent(result.name, result.description, start_date, end_date
+        ,result.type);
+      console.log('The dialog was closed');
+    });
+  }
+
+  sendAddEvent(name: string, desc: string, start: string, end:string, type:EventType) {
+    this.server.addEvent(name, desc, start, end, type).subscribe((data:any) => {
+      if (data.error == true){
+        alert(data);
+      } else {
+        var event = new Event(data,name, desc, type,  new Date(start));
+        this.events.push(event)
+      }
+    },
+    err => {
+      console.log('Error: ' + err.error);
+    });
+  }
 
   openEditDialog(i:  number): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {

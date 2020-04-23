@@ -101,15 +101,17 @@ class SqlConnection(object):
     def add_event(self, name, start, end, desc, user_id, typeof):
         res = Result.SUCCESS
         cur = self.db.cursor()
+        result = None
         sql_command = "INSERT INTO events (name, start, end, description, user_id, type) VALUES ('"+str(name) + "','" + str(start) + "','" + str(end) + "','" + str(desc) + "','" + str(user_id) + "',' +" + str(typeof) + "')"
         try:
             cur.execute(sql_command)
-            self.db.commit()
+            
+            result = cur.lastrowid
         except Exception as e:
             res = Result.PROCESS_ERROR
         finally:
             self.db.close()
-            return res
+            return res, result
 
     def get_events(self, user_id, year, month):
         cur = self.db.cursor()

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <body>
+  <h1 style="margin: 20px;">Welcome {{username}}</h1>
   <!--
 <div style="margin-left: 30px;border-color: black;border-style:solid;width: 10%;border-width:thin;">
   <label style="text-align: center;">Dictionary</label>
@@ -35,9 +36,9 @@
   </tr>
   <tr>
 
-    <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day">
-      <span class="number">{{d}}</span>
-      <div class="events">
+    <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day" (click)="openAddDialog(d)">
+      <span class="number" >{{d}}</span>
+      <div class="events" >
         <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">

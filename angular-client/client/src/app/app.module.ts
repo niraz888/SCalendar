@@ -19,6 +19,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule} from '@angular/material/select';
 import { SettingsComponent } from './settings/settings.component';
+import { AddEventComponent } from './Dialog/add-event/add-event.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SettingsComponent } from './settings/settings.component';
     DashboardComponent,
     CalendarComponent,
     EditDialogComponent,
-    SettingsComponent
+    SettingsComponent,
+    AddEventComponent
   ],
   imports: [
     BrowserModule,

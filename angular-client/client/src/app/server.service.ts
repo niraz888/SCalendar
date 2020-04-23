@@ -49,6 +49,16 @@ export class ServerService {
     return this.http.post(this.rootUrl + '/edit_event', postData);
   }
 
+  addEvent(name:string, desc:string, start:string, end:string, type:EventType){
+    const postData = new FormData()
+    postData.append('event_name', name);
+    postData.append('user_id', localStorage.getItem('user_id'));
+    postData.append('description', desc);
+    postData.append('start_time', start);
+    postData.append('end_time', end);
+    postData.append('type', type.toString());
+    return this.http.post(this.rootUrl + '/add_event', postData);
+  }
   validatePassword(old_pass: string, new_pass: string) {
     const postData = new FormData();
     postData.append('user_id', localStorage.getItem('user_id'));

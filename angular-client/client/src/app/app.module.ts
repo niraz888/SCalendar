@@ -18,6 +18,7 @@ import { EditDialogComponent } from './Dialog/edit-dialog/edit-dialog.component'
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule} from '@angular/material/select';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatSelectModule} from '@angular/material/select';
     RegisterComponent,
     DashboardComponent,
     CalendarComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

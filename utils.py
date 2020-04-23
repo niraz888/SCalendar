@@ -51,11 +51,12 @@ class SqlConnection(object):
             if result == None:
                 res = Result.LOGIC_ERROR
             else:
-                if result[0] == password:
+                if check_password_hash(result[0], password):
                     res = Result.SUCCESS
         except ValueError as e:
             res = Result.PROCESS_ERROR
         finally:
+            self.db.cursor()
             return res
         
     def update_password(self,password, id):

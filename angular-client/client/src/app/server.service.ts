@@ -48,4 +48,12 @@ export class ServerService {
     postData.append('type', type.toString());
     return this.http.post(this.rootUrl + '/edit_event', postData);
   }
+
+  validatePassword(old_pass: string, new_pass: string) {
+    const postData = new FormData();
+    postData.append('user_id', localStorage.getItem('user_id'));
+    postData.append('old_password', old_pass);
+    postData.append('password', new_pass);
+    return this.http.post(this.rootUrl + '/update_pass', postData);
+  }
 }

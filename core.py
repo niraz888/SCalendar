@@ -45,15 +45,15 @@ def update():
 def update_password():
     old_pass = request.form['old_password']
     password = request.form['password']
-    id_user = request.form['id']
+    id_user = request.form['user_id']
     con = SqlConnection()
     res = con.validate_password(old_pass, id_user)
     if res != Result.SUCCESS:
-        return 'bad'
+        return jsonify('Wrong Password, please try again')
     else:
-        new_res = con.update_password(password,id_user)
+        new_res = con.update_password(generate_password_hash(password),id_user)
         if new_res == Result.SUCCESS:
-            return 'good'
+            return jsonify('good')
         else:
             return 'bad'
 

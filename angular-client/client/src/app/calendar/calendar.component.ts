@@ -69,7 +69,7 @@ export class CalendarComponent implements OnInit {
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '450px',
   
-      data: {name:'', description: '', start:'', end:'', type:1, index:i}
+      data: {name:'', description: '', start:'', end:'', type:1, index:i, event_id:this.events[i].getID()}
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -162,6 +162,7 @@ export class CalendarComponent implements OnInit {
     }
      this.change_month();
      this.getCurrentEvents();
+     var dsas = 33;
   }
 
   getCurrentEvents() {
@@ -189,7 +190,7 @@ export class CalendarComponent implements OnInit {
           var hour = splitted[4]
           var date : string = year + "-" + month + "-" + day + " "+ hour;
           var event = new Event(event_id, name, desc, type, new Date(date));
-          this.events.push(event)
+          this.events.push(event);
         }
         var dsd = 3;
       }

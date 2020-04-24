@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule} from '@angular/material/select';
 import { SettingsComponent } from './settings/settings.component';
 import { AddEventComponent } from './Dialog/add-event/add-event.component';
+import { DeleteDialogComponent } from './Dialog/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AddEventComponent } from './Dialog/add-event/add-event.component';
     CalendarComponent,
     EditDialogComponent,
     SettingsComponent,
-    AddEventComponent
+    AddEventComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

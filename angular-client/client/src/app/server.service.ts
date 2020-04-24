@@ -66,4 +66,10 @@ export class ServerService {
     postData.append('password', new_pass);
     return this.http.post(this.rootUrl + '/update_pass', postData);
   }
+
+  deleteEvent(id: number) {
+    const postData = new FormData();
+    postData.append('event_id', id.toString());
+    return this.http.post(this.rootUrl + '/delete_event', postData);
+  }
 }

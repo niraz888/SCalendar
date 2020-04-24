@@ -111,6 +111,17 @@ def edit_event():
         else:
             return jsonify('error in updating event')
 
+@api.route('/api/delete_event', methods=['POST'])
+def delete_event():
+    if request.method == 'POST':
+        event_id = request.form['event_id']
+        con = SqlConnection()
+        res = con.delete_event(event_id)
+        if res == Result.SUCCESS:
+            return jsonify('event deleted successfully')
+        else:
+            return jsonfiy('error in delete event')
+
     
     
 

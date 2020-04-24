@@ -138,3 +138,17 @@ class SqlConnection(object):
         finally:
             self.db.close()
             return res
+    
+    def delete_event(self, event_id):
+        cur = self.db.cursor()
+        res = None
+        sql_command = "DELETE FROM calender.events WHERE event_id='" + str(event_id) + "'"
+        try:
+            cur.execute(sql_command)
+            self.db.commit()
+            res = Result.SUCCESS
+        except Exception as e:
+            res = Result.PROCESS_ERROR
+        finally:
+            self.db.close()
+            return res

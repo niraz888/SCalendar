@@ -36,7 +36,7 @@
   </tr>
   <tr>
 
-    <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day" (click)="openAddDialog(d)">
+    <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day" >
       <span class="number" >{{d}}</span>
       <div class="events" >
         <div *ngFor="let e of events;index as k">

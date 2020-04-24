@@ -49,7 +49,17 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">{{d}}</span></td>
+    <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">
+      {{d}}</span>
+      <div class="events" >
+        <div *ngFor="let e of events;index as k">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
+    </div>
+    </td>
   </tr>
   <tr>
     <td *ngFor="let d of calendar | slice:14:21;" class="day">
@@ -65,12 +75,30 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:21:28;" class="day"><span class="number">{{d}}</span></td>
-
+    <td *ngFor="let d of calendar | slice:21:28;" class="day"><span class="number">
+      {{d}}</span>
+      <div class="events">
+        <div *ngFor="let e of events;">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
+    </div>
+    </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:28:34;" class="day"><span class="number">{{d}}</span></td>
-
+    <td *ngFor="let d of calendar | slice:28:34;" class="day"><span class="number">
+      {{d}}</span>
+      <div class="events">
+        <div *ngFor="let e of events;">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
+    </div>
+    </td>
   </tr>
 </table>
 <div>

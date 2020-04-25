@@ -121,9 +121,7 @@ def delete_event():
             return jsonify('event deleted successfully')
         else:
             return jsonfiy('error in delete event')
-
-    
-    
+   
 
 
 

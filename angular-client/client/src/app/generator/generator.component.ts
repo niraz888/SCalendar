@@ -11,9 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class GeneratorComponent implements OnInit {
   selectControl:FormControl = new FormControl()
+  isWait: boolean;
   constructor(private server: ServerService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.isWait = false;
   }
 
   openMovieDialog(data: any) {
@@ -34,10 +36,12 @@ export class GeneratorComponent implements OnInit {
   submit(val: any) {
     var i = val;
     let d  = 3;
+    this.isWait = true;
     this.server.getMovie(val).subscribe((data: any) =>  {
       if (data.error){
         var s = 3;
       } else{
+        this.isWait = false;
         this.openMovieDialog(data);
       }
     },

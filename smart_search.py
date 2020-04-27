@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 import requests
 from bs4 import BeautifulSoup
 import random
@@ -36,7 +36,6 @@ class IMDB_Scraper(object):
                 duration = second.find('span', class_="runtime").text
             except Exception as e:
                 duration = None
-            #duration = div.find('div', class_="lister-item-content").find('span', class_="runtime").text
             genere_string = second.find('span', class_="genre").text
             
             movie = Movie(name, year, duration)
@@ -65,19 +64,21 @@ class IMDB_Scraper(object):
             ret_list.extend(self.check())
         return ret_list
 
-@bp.route('/bp/try')
+@bp.route('/bp/try', methods=['GET'])
 def first_try():
-    scraper = IMDB_Scraper()
-    """
-    movies = []
-    params = {'start': '0'}
-    scraper.init_soup(params)
-    list_movies = scraper.check(movies)
-    params2 = {'start': '78'}
-    scraper.init_soup(params2)
-    temp = scraper.check(list_movies)
-    """
-    temp = scraper.scraping()
-    new_list = scraper.consolidate_list(temp, 'Mystery')
-    i = random.randint(1, len(new_list))
-    return new_list[i].name
+    if request.method == 'GET':
+        genre = request.args.get("genre")
+        scraper = IMDB_Scraper()
+        """
+        movies = []
+        params = {'start': '0'}
+        scraper.init_soup(params)
+        list_movies = scraper.check(movies)
+        params2 = {'start': '78'}
+        scraper.init_soup(params2)
+        temp = scraper.check(list_movies)
+        """
+        temp = scraper.scraping()
+        new_list = scraper.consolidate_list(temp, genre)
+        i = random.randint(1, len(new_list))
+        return jsonify(name=new_list[i].name, genre=new_list[i].genre, year=new_list[i].year)

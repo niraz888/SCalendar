@@ -20,7 +20,7 @@ export class GeneratorComponent implements OnInit {
     const dialogRef = this.dialog.open(GetMovieDialogComponent, {
       width: '450px',
   
-      data: {name:data.name, duration:data.duration, year:data.year}
+      data: {name:data.name, duration:data.duration, year:data.year, link:'https://www.imdb.com' + data.link}
     });
   
     dialogRef.afterClosed().subscribe(result => {

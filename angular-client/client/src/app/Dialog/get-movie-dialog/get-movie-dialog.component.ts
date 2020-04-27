@@ -23,5 +23,8 @@ export class GetMovieDialogComponent implements OnInit {
 }
 
 export interface GetMovieData {
-
+  name: string;
+  duration: string;
+  year: string;
+  link: string;
 }

@@ -23,6 +23,7 @@ import { AddEventComponent } from './Dialog/add-event/add-event.component';
 import { DeleteDialogComponent } from './Dialog/delete-dialog/delete-dialog.component';
 import { GeneratorComponent } from './generator/generator.component';
 import { GetMovieDialogComponent } from './Dialog/get-movie-dialog/get-movie-dialog.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { GetMovieDialogComponent } from './Dialog/get-movie-dialog/get-movie-dia
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   providers: [ServerService],
   bootstrap: [AppComponent],

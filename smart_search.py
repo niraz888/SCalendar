@@ -8,11 +8,12 @@ bp = Blueprint('bp', __name__)
 url = 'https://www.imdb.com/search/title/?title_type=feature'
 
 class Movie(object):
-    def __init__(self, name, year, duration):
+    def __init__(self, name, year, duration, link):
         self.name = name
         self.genre = []
         self.year = year
         self.duration = duration
+        self.link = link
 
 class IMDB_Scraper(object):
     def __init__(self):
@@ -29,6 +30,7 @@ class IMDB_Scraper(object):
         for div in divs:
             movieFirstLine = div.find("h3", class_="lister-item-header")
             name = movieFirstLine.find('a').text
+            link = movieFirstLine.find('a')['href']
             year = div.find('span', class_="lister-item-year").text
             first = div.find('div', class_="lister-item-content")
             second = first.find('p')
@@ -38,7 +40,7 @@ class IMDB_Scraper(object):
                 duration = None
             genere_string = second.find('span', class_="genre").text
             
-            movie = Movie(name, year, duration)
+            movie = Movie(name, year, duration, link)
             self.parse_genere(genere_string, movie)
             movies.append(movie)
         return movies
@@ -81,4 +83,4 @@ def first_try():
         temp = scraper.scraping()
         new_list = scraper.consolidate_list(temp, genre)
         i = random.randint(1, len(new_list))
-        return jsonify(name=new_list[i].name, genre=new_list[i].genre, year=new_list[i].year)
+        return jsonify(name=new_list[i].name, genre=new_list[i].genre, year=new_list[i].year, link=new_list[i].link)

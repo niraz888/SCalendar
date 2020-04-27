@@ -8,8 +8,10 @@ import { EventType } from './event';
 export class ServerService {
 
   rootUrl = "http://localhost:5000/api"
+  secUrl = "http://localhost:5000/bp"
   constructor(private http: HttpClient) { }
 
+  /* section of /api REST */
   loginUser(email:  string, password: string) {
     const postData = new FormData();
     postData.append('username', email);
@@ -71,5 +73,15 @@ export class ServerService {
     const postData = new FormData();
     postData.append('event_id', id.toString());
     return this.http.post(this.rootUrl + '/delete_event', postData);
+  }
+
+  /* section of /api REST */
+  /***********************/
+  /********************* */
+  /*********************** */
+
+  getMovie(genre: string) {
+    const params = new HttpParams().set('genre', genre);
+    return this.http.get(this.secUrl + '/try', {params});
   }
 }

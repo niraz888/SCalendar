@@ -1,0 +1,5 @@
+.card {
+    margin: 5em auto; /* Added */
+    float: none; /* Added */
+    width: 40%;
+}

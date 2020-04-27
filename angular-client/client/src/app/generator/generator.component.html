@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Movie Generator</h5>
+            <div>
+                <h2><span>Select genre:</span></h2>
+                <select class="form-control" [formControl]="selectControl">
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Thriller">Thriller</option>
+                </select>
+                <br>
+                <p><span>You selected: </span><b>{{selectControl.value}}</b></p>
+                <button (click)="submit(selectControl.value)">Set Value</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Concert Generator</h5>
+            <div>
+                <h2><span>Select genre:</span></h2>
+                <select class="form-control" [formControl]="selectControl">
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Animation">Animation</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Thriller">Thriller</option>
+                </select>
+                <br>
+                <p><span>You selected: </span><b>{{selectControl.value}}</b></p>
+                <button (click)="submit(selectControl.value)">Set Value</button>
+            </div>
+        </div>
+    </div>
+</div>

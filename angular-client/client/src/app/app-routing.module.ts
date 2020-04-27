@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AuthGuard } from './auth.guard';
 import { SettingsComponent } from './settings/settings.component';
+import { GeneratorComponent } from './generator/generator.component';
 
 const routes: Routes = [
   {path:  '', redirectTo: '/login', pathMatch:'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   children: [
     {path: '', redirectTo: 'calendar', pathMatch:'full'},
     {path: 'calendar', component:CalendarComponent},
-    {path: 'settings', component:SettingsComponent}
+    {path: 'settings', component:SettingsComponent},
+    {path: 'generator', component:GeneratorComponent}
   ]}
 ];
 

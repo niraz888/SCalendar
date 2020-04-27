@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Edit Event</h1>
+<div mat-dialog-content style="background-color: white;"class="contentBox">
+    <h5>Name</h5>
+    <p> {{data.name}} </p>
+<br>
+    <h5>Duration</h5>
+      <p> {{data.duration}} </p>
+<br>
+    <h5>Year</h5>
+    <p> {{data.year}}</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Edit</button>
+  <button mat-button (click)="openDeleteDialog(data.event_id)" >Delete</button>
+</div>

@@ -21,6 +21,8 @@ import { MatSelectModule} from '@angular/material/select';
 import { SettingsComponent } from './settings/settings.component';
 import { AddEventComponent } from './Dialog/add-event/add-event.component';
 import { DeleteDialogComponent } from './Dialog/delete-dialog/delete-dialog.component';
+import { GeneratorComponent } from './generator/generator.component';
+import { GetMovieDialogComponent } from './Dialog/get-movie-dialog/get-movie-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DeleteDialogComponent } from './Dialog/delete-dialog/delete-dialog.comp
     EditDialogComponent,
     SettingsComponent,
     AddEventComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    GeneratorComponent,
+    GetMovieDialogComponent
   ],
   imports: [
     BrowserModule,

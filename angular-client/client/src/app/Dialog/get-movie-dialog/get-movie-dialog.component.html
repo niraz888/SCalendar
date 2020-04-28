@@ -11,10 +11,20 @@
 <br>
     <h5>link</h5>
     <a href="{{data.link}}" target="_blank">link to profile in IMDB</a>
-
+<br>
+<button (click)=add()> add</button>
+<div *ngIf=isAdd>
+    <mat-form-field >
+        <p> Start </p>
+      <input type="datetime-local" matInput [(ngModel)]="data.start">
+      </mat-form-field>
+      <mat-form-field >
+          <p> End </p>
+        <input type="datetime-local" matInput [(ngModel)]="data.end">
+        </mat-form-field>
+</div>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" >Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Edit</button>
-  <button mat-button (click)="openDeleteDialog(data.event_id)" >Delete</button>
+  <button *ngIf=isAdd mat-button [mat-dialog-close]="data" cdkFocusInitial >Submit</button>
 </div>

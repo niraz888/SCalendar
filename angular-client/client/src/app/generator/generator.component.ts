@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ServerService } from '../server.service';
 import { GetMovieDialogComponent } from '../Dialog/get-movie-dialog/get-movie-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EventType } from '../event';
 
 @Component({
   selector: 'app-generator',
@@ -22,7 +23,7 @@ export class GeneratorComponent implements OnInit {
     const dialogRef = this.dialog.open(GetMovieDialogComponent, {
       width: '450px',
   
-      data: {name:data.name, duration:data.duration, year:data.year, link:'https://www.imdb.com' + data.link}
+      data: {name:data.name, duration:data.duration, year:data.year, link:'https://www.imdb.com' + data.link, start:'', end:''}
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -30,7 +31,10 @@ export class GeneratorComponent implements OnInit {
         return;
       }
 
-      console.log('The dialog was closed');
+      var name = 'movie -' + result.name;
+      var desc = 'see movie with ' + result.name
+      var type = EventType.TvShow;
+      
     });
   }
   submit(val: any) {

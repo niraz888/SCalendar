@@ -5,16 +5,22 @@ import { EditDialogComponent, EditDialogData } from '../edit-dialog/edit-dialog.
 @Component({
   selector: 'app-get-movie-dialog',
   templateUrl: './get-movie-dialog.component.html',
-  styleUrls: ['./get-movie-dialog.component.css']
+  styleUrls: ['../edit-dialog/edit-dialog.component.css']
 })
 export class GetMovieDialogComponent implements OnInit {
 
+  isAdd: boolean;
   constructor( public dialogRef: MatDialogRef<GetMovieDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GetMovieData) { }
+    @Inject(MAT_DIALOG_DATA) public data: GetMovieData) {
+      this.isAdd = false;
+     }
 
   ngOnInit(): void {
   }
 
+  add() {
+    this.isAdd = !this.isAdd;
+  }
   onNoClick(): void {
     
     this.dialogRef.close();
@@ -27,4 +33,6 @@ export interface GetMovieData {
   duration: string;
   year: string;
   link: string;
+  start: string;
+  end: string;
 }

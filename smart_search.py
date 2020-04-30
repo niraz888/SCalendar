@@ -15,14 +15,26 @@ class Movie(object):
         self.duration = duration
         self.link = link
 
+"""
+IMDB_Scraper class.
+"""
 class IMDB_Scraper(object):
     def __init__(self):
         d = 2
 
+    """
+    by a given params launch a GET request to a given URL
+    and extract the response to soup field.
+    """
     def init_soup(self, param):
         page = requests.get(url,params=param)
         self.soup = BeautifulSoup(page.content, 'lxml')
 
+    """
+    extract all the div elements that conatins info about the movies
+    and for each div extract name, link to profile, year of release,
+    duration and list of appropriate genres.
+    """
     def check(self):
         movies = []
         content = self.soup.find(id="main")
@@ -45,11 +57,18 @@ class IMDB_Scraper(object):
             movies.append(movie)
         return movies
 
+    """
+    parse the genre string into the genre-list of the movie.
+    """
     def parse_genere(self, genere, movie):
         striped = genere.split(', ')
         for g in striped:
             movie.genre.append(g.strip())
-        
+    
+    """
+    consolidate the list of all movies that were extracted into a list of 
+    movies that contains the given genre.
+    """
     def consolidate_list(self,movies, given_genre):
         new_list = []
         for item in movies:
@@ -57,6 +76,10 @@ class IMDB_Scraper(object):
                 new_list.append(item)
         return new_list
 
+    """
+    scraping the pages of IMDB and each time changes the parameters
+    to the GET request.
+    """
     def scraping(self):
         ret_list = []
         for i in range(1,154, 50):

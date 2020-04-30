@@ -8,6 +8,11 @@ class Result(Enum):
     PROCESS_ERROR = 2
     SUCCESS = 3
 
+"""
+SqlConnection class.
+contains api to the database that include all the actions that need to performs
+to extract the data.
+"""
 class SqlConnection(object):
     def __init__(self):
         self.db = pymysql.connect('localhost', 'nir', 'pass', 'calender')

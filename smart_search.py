@@ -7,6 +7,10 @@ bp = Blueprint('bp', __name__)
 
 url = 'https://www.imdb.com/search/title/?title_type=feature'
 
+
+"""""""""""""""""""""
+MOVIE GENERATOR SECTION
+"""""""""""""""""""""
 class Movie(object):
     def __init__(self, name, year, duration, link):
         self.name = name
@@ -15,9 +19,6 @@ class Movie(object):
         self.duration = duration
         self.link = link
 
-"""
-IMDB_Scraper class.
-"""
 class IMDB_Scraper(object):
     def __init__(self):
         d = 2
@@ -89,6 +90,56 @@ class IMDB_Scraper(object):
             ret_list.extend(self.check())
         return ret_list
 
+"""
+CONCERT GENERATOR SECTION
+"""
+class Concert(object):
+    def __init__(self,year, month, day, city, country):
+        self.year = year
+        self.month = month
+        self.day = day
+        self.city = city
+        self.country = country
+
+class SongKick_Scraper(object):
+    def __init__(self, band):
+        token = "https://www.songkick.com/search?utf8=✓&type=initial&query={}".format(band)
+        page = request.get(token)
+        soup = BeautifulSoup(page.content, 'lxml')
+        temp = soup.find("li", {"class" : "artist"}).find('a')['href']
+        self.url = "www.songkick.com/" + temp + "/calendar"
+
+    def init_soup(self, params):
+        page = requests.get(self.url)
+        self.soup = BeautifulSoup(page.content, 'lxml',params=params)
+
+    def check_and_fix_input(self, input):
+        return input.replace(" ", "+")
+    
+    def scrap(self):
+        content = self.soup.find("div", {"class" : "sticky-container"})
+        list_elements = content.find_all("li", {"class" : "event-listing"})
+        for elm in list_elements:
+            month = elm.find("h4", {"class" : "month"}).text
+            day = elm.find("h3", {"class" : "date"}).text
+            place = elm.find("p", {"class" : "venue"}).text
+            where = elm.find("strong", {"class" : "metro"}).text
+            arr = where.split(", ")
+            city = arr[0]
+            state = arr[1]
+            if arr[2] != None:
+                country = arr[2]
+            link = elm.find("a")['href']
+
+"""
+ROUTES
+"""
+@bp.route('/bp/get_concert', methods=['POST'])
+def get_concert():
+    if request.method == 'POST':
+        band = request.form['band']
+
+
 @bp.route('/bp/try', methods=['GET'])
 def first_try():
     if request.method == 'GET':
@@ -107,3 +158,4 @@ def first_try():
         new_list = scraper.consolidate_list(temp, genre)
         i = random.randint(1, len(new_list))
         return jsonify(name=new_list[i].name, genre=new_list[i].genre, year=new_list[i].year, link=new_list[i].link)
+

@@ -104,20 +104,20 @@ class Concert(object):
 class SongKick_Scraper(object):
     def __init__(self, band):
         token = "https://www.songkick.com/search?utf8=✓&type=initial&query={}".format(band)
-        page = request.get(token)
+        page = requests.get(token)
         soup = BeautifulSoup(page.content, 'lxml')
         temp = soup.find("li", {"class" : "artist"}).find('a')['href']
-        self.url = "www.songkick.com/" + temp + "/calendar"
+        self.url = "http://www.songkick.com" + temp + "/calendar"
 
-    def init_soup(self, params):
+    def init_soup(self):
         page = requests.get(self.url)
-        self.soup = BeautifulSoup(page.content, 'lxml',params=params)
+        self.soup = BeautifulSoup(page.content, 'lxml')
 
     def check_and_fix_input(self, input):
         return input.replace(" ", "+")
     
     def scrap(self):
-        content = self.soup.find("div", {"class" : "sticky-container"})
+        content = self.soup.find("div", {"id" : "calendar-summary"})
         list_elements = content.find_all("li", {"class" : "event-listing"})
         for elm in list_elements:
             month = elm.find("h4", {"class" : "month"}).text
@@ -138,6 +138,11 @@ ROUTES
 def get_concert():
     if request.method == 'POST':
         band = request.form['band']
+        scrap = SongKick_Scraper(band)
+        scrap.init_soup()
+#        scrap.check_and_fix_input()
+        scrap.scrap()
+
 
 
 @bp.route('/bp/try', methods=['GET'])

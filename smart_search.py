@@ -107,7 +107,7 @@ class SongKick_Scraper(object):
         page = requests.get(token)
         soup = BeautifulSoup(page.content, 'lxml')
         temp = soup.find("li", {"class" : "artist"}).find('a')['href']
-        self.url = "http://www.songkick.com" + temp + "/calendar"
+        self.url = "http://www.songkick.com" + temp
 
     def init_soup(self):
         page = requests.get(self.url)
@@ -117,8 +117,14 @@ class SongKick_Scraper(object):
         return input.replace(" ", "+")
     
     def scrap(self):
-        content = self.soup.find("div", {"id" : "calendar-summary"})
-        list_elements = content.find_all("li", {"class" : "event-listing"})
+        """
+        content = self.soup.find("div", {"class" : "sticky-container"})
+        content = content.find("div", {"class" : "container"})
+        content = content.find("div", {"class" : "row"})
+        content = content.find("div", {"id" : "calendar-summary"})
+        """
+        listof = []
+        list_elements = self.soup.find_all("li", {"class" : "event-listing"})
         for elm in list_elements:
             month = elm.find("h4", {"class" : "month"}).text
             day = elm.find("h3", {"class" : "date"}).text
@@ -127,9 +133,11 @@ class SongKick_Scraper(object):
             arr = where.split(", ")
             city = arr[0]
             state = arr[1]
-            if arr[2] != None:
-                country = arr[2]
             link = elm.find("a")['href']
+            concert = Concert(' ', month, day.strip(), city, state)
+            listof.append(concert)
+        d = 3
+        return listof
 
 """
 ROUTES

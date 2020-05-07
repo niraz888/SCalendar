@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 import requests
 from bs4 import BeautifulSoup
 import random
+from datetime import datetime
+import json
 
 bp = Blueprint('bp', __name__)
 
@@ -101,6 +103,9 @@ class Concert(object):
         self.city = city
         self.country = country
 
+    def dump(self):
+        return {"concert" : {'year': self.year, 'month': self.month, 'day': self.day, 'city':self.city, 'country':self.country}}
+
 class SongKick_Scraper(object):
     def __init__(self, band):
         token = "https://www.songkick.com/search?utf8=✓&type=initial&query={}".format(band)
@@ -128,8 +133,8 @@ class SongKick_Scraper(object):
         for elm in list_elements:
             month = elm.find("h4", {"class" : "month"}).text
             day = elm.find("h3", {"class" : "date"}).text
-            place = elm.find("p", {"class" : "venue"}).text
-            where = elm.find("strong", {"class" : "metro"}).text
+            place = elm.find("p", {"class" : "secondary-detail"}).text
+            where = elm.find("strong", {"class" : "primary-detail"}).text
             arr = where.split(", ")
             city = arr[0]
             state = arr[1]
@@ -138,6 +143,15 @@ class SongKick_Scraper(object):
             listof.append(concert)
         d = 3
         return listof
+    
+    def pop_past_event(self, current, concerts):
+        new_list = []
+        mapper = {'Jan' : 1 , 'Feb' : 2, 'Mar' : 3, 'Apr' : 4, 'May' : 5, 'Jun' : 6, 'Jul' : 7, 'Aug' : 8 ,'Sep' : 9, 'Oct' : 10, 'Nov' : 11, 'Dec' : 12}
+        
+        for con in concerts:
+            if mapper[con.month] > current.month:
+                new_list.append(con)
+        return new_list
 
 """
 ROUTES
@@ -146,10 +160,17 @@ ROUTES
 def get_concert():
     if request.method == 'POST':
         band = request.form['band']
-        scrap = SongKick_Scraper(band)
+        try:
+            scrap = SongKick_Scraper(band)
+        except Exception as e:
+            return jsonify("No Such Band or No Concert Upcoming")
         scrap.init_soup()
 #        scrap.check_and_fix_input()
-        scrap.scrap()
+        concerts = scrap.scrap()
+        current = datetime.now()
+        li = scrap.pop_past_event(current, concerts)
+        d = 3
+        return json.dumps([o.dump() for o in li])
 
 
 

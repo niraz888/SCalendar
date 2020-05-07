@@ -84,4 +84,10 @@ export class ServerService {
     const params = new HttpParams().set('genre', genre);
     return this.http.get(this.secUrl + '/try', {params});
   }
+
+  getConcerts(band: string) {
+    const postData = new FormData();
+    postData.append('band', band);
+    return this.http.post(this.secUrl + '/get_concert', postData);
+  }
 }

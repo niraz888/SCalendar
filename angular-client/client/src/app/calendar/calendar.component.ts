@@ -126,7 +126,7 @@ export class CalendarComponent implements OnInit {
 
   }
 
-  
+ 
   change_month() {
     var first_day = new Date(this.current_year + "-" + this.current_month + "-01").getDay()
     var i = 0;

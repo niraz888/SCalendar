@@ -40,7 +40,7 @@
       <span class="number" >{{d}}</span>
       <div class="events" >
         <div *ngFor="let e of events;index as k">
-          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button matTooltipClass="tool-tip"  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
@@ -53,7 +53,7 @@
       {{d}}</span>
       <div class="events" >
         <div *ngFor="let e of events;index as k">
-          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
@@ -66,7 +66,7 @@
       <span class="number">{{d}}</span>
       <div class="events">
         <div *ngFor="let e of events;">
-          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
@@ -79,7 +79,7 @@
       {{d}}</span>
       <div class="events">
         <div *ngFor="let e of events;">
-          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
@@ -92,7 +92,7 @@
       {{d}}</span>
       <div class="events">
         <div *ngFor="let e of events;">
-          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>

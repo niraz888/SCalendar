@@ -12,6 +12,7 @@ import { EventType } from '../event';
 })
 export class GeneratorComponent implements OnInit {
   selectControl:FormControl = new FormControl()
+  concertControl:FormControl = new FormControl()
   isWait: boolean;
   constructor(private server: ServerService, private dialog: MatDialog) { }
 
@@ -34,8 +35,24 @@ export class GeneratorComponent implements OnInit {
       var name = 'movie -' + result.name;
       var desc = 'see movie with ' + result.name
       var type = EventType.TvShow;
-      
+      var start = result.start.replace("T", " ") + ":00";
+      var end = result.end.replace("T", " ") + ":00";
+      this.add(name, desc, start, end, type);
     });
+  }
+
+  add(name:string, desc:string, start:string, end:string, type:EventType) {
+    this.server.addEvent(name, desc, start, end, type).subscribe((data: any) =>  {
+      if (data.error){
+        var s = 3;
+      } else{
+        alert("Event Added Successfully");
+      }
+    },
+      err => {
+        console.log('Error: ' + err.error);
+      });
+    
   }
   submit(val: any) {
     var i = val;

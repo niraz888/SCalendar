@@ -13,8 +13,10 @@ td { width: 14.285%; transition: all 0.3s; font-size: 14px; color: rgba(255,255,
 
 span.number { margin-left: 10% }
 
-::ng-deep .tool-tip {
+ .tool-tip {
   white-space: pre;
+  position: relative;
+  float: left;
 }
 .dot {
     height: 15px;

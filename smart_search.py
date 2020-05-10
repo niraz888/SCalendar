@@ -146,7 +146,7 @@ class SongKick_Scraper(object):
         content = content.find("div", {"class" : "row"})
         content = content.find("div", {"id" : "calendar-summary"})
         """
-        listof = []
+        list_of_concerts = []
         list_elements = self.soup.find_all("li", {"class" : "event-listing"})
         for elm in list_elements:
             month = elm.find("h4", {"class" : "month"}).text
@@ -160,7 +160,7 @@ class SongKick_Scraper(object):
             concert = Concert('2020', str(MAPPER[month]), day.strip(), city, state)
             listof.append(concert)
         d = 3
-        return listof
+        return list_of_concerts
     
     def pop_past_event(self, current, concerts):
         new_list = []

@@ -85,9 +85,11 @@ export class ServerService {
     return this.http.get(this.secUrl + '/try', {params});
   }
 
-  getConcerts(band: string) {
+  getConcerts(band: string, from:string, until:string) {
     const postData = new FormData();
     postData.append('band', band);
+    postData.append('from', from);
+    postData.append('until', until);
     return this.http.post(this.secUrl + '/get_concert', postData);
   }
 }

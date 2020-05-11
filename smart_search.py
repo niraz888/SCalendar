@@ -213,29 +213,33 @@ class Show(object):
             return True
         return False
 
-class Theathre_Scraper(object):
-    def __init__(self):
-        d = 3
+    def dump(self):
+        return {"show" : {'name': self.name, 'place': self.place, 'description': self.description, 'link':self.link}}
 
-    def find_shows_in_london(self, start, end):
+
+class Theathre_Scraper(object):
+    def __init__(self, flag):
+        self.isLondon = flag
+
+    def find_shows(self, start, end, url):
         global MAPPER
         # num = MAPPER[start]
         start_index = MAPPER[start]
         end_index = MAPPER[end]
         shows = []
         for i in range(start_index, end_index):
-            self.init_soup(i)
+            self.init_soup(url, i)
             final = self.scrap(shows)
-        d= 3
+        return shows
 
     def convert_month(self, month):
         global MAPPER
         inv_map = {v: k for k, v in MAPPER.items()}
         return inv_map[month]
 
-    def init_soup(self, month_num):
+    def init_soup(self, url_site, month_num):
         month = self.convert_month(month_num)
-        url = "https://www.londontheatre.co.uk/whats-on/calendar/" + month.lower()
+        url = url_site + month.lower()
         page = requests.get(url)
         self.soup = BeautifulSoup(page.content, 'lxml')
 
@@ -248,11 +252,12 @@ class Theathre_Scraper(object):
             name = name_and_link.text
             link = name_and_link['href']
             place = div.find("div", {"class" : "post-title post-venue-name"}).find('a').text
-            desc = div.find("div", {"class" : "post-body"}).find('p').text
+            if self.isLondon:
+                desc = div.find("div", {"class" : "post-body"}).find('p').text
+            else:
+                desc = 'None'
             link = "https://www.londontheatre.co.uk" + link
             show = Show(name, place, desc, link)
-            if show.name == 'Hamilton':
-                fs = 3
             if show not in shows:
                 shows.append(show)
         return shows
@@ -285,14 +290,22 @@ def get_show():
         if place == 'london':
             return redirect(url_for('bp.get_london_shows', start=start, end=end))
         elif place == 'new york':
-            return redirect(url_for('new-york_shows'))
+            return redirect(url_for('bp.get_nyc_shows', start=start, end=end))
 
 @bp.route('/bp/get_london_shows/<start>/<end>')
 def get_london_shows(start, end):
-    scrap = Theathre_Scraper()
-    li = scrap.find_shows_in_london(start, end)
-    return jsonify("Hello")
-            
+    scrap = Theathre_Scraper(True)
+    url = "https://www.londontheatre.co.uk/whats-on/calendar/"
+    shows = scrap.find_shows(start, end, url)
+    return json.dumps([o.dump() for o in shows])
+
+@bp.route('/bp/get_nyc_shows/<start>/<end>')
+def get_nyc_shows(start, end):
+    scrap = Theathre_Scraper(False)
+    url = "https://www.newyorktheatreguide.com/whats-on/broadway/calendar/"
+    shows = scrap.find_shows(start, end, url)    
+    return json.dumps([o.dump() for o in shows])
+
 @bp.route('/bp/try', methods=['GET'])
 def first_try():
     if request.method == 'GET':

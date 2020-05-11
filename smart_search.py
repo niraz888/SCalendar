@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect, url_for
 import requests
 from bs4 import BeautifulSoup
 import random
@@ -199,6 +199,64 @@ class SongKick_Scraper(object):
         return new_list 
 
 """
+THEATHRE SHOW GENERATOR SECTION
+"""
+class Show(object):
+    def __init__(self, name, place, description, link):
+        self.name = name
+        self.place = place
+        self.description = description
+        self.link = link
+
+    def __eq__(self, other):
+        if self.name == other.name:
+            return True
+        return False
+
+class Theathre_Scraper(object):
+    def __init__(self):
+        d = 3
+
+    def find_shows_in_london(self, start, end):
+        global MAPPER
+        # num = MAPPER[start]
+        start_index = MAPPER[start]
+        end_index = MAPPER[end]
+        shows = []
+        for i in range(start_index, end_index):
+            self.init_soup(i)
+            final = self.scrap(shows)
+        d= 3
+
+    def convert_month(self, month):
+        global MAPPER
+        inv_map = {v: k for k, v in MAPPER.items()}
+        return inv_map[month]
+
+    def init_soup(self, month_num):
+        month = self.convert_month(month_num)
+        url = "https://www.londontheatre.co.uk/whats-on/calendar/" + month.lower()
+        page = requests.get(url)
+        self.soup = BeautifulSoup(page.content, 'lxml')
+
+    def scrap(self, shows):
+        content = self.soup.find("div", {"class" : "view-list"}).find("ul").find_all("li")
+        d = 3
+        for item in content:
+            div = item.find("div", {"class" : "col-sm-9 col-xs-12 calendar-body"})
+            name_and_link =  div.find("div", {"class" : "post-title"}).find('a')
+            name = name_and_link.text
+            link = name_and_link['href']
+            place = div.find("div", {"class" : "post-title post-venue-name"}).find('a').text
+            desc = div.find("div", {"class" : "post-body"}).find('p').text
+            link = "https://www.londontheatre.co.uk" + link
+            show = Show(name, place, desc, link)
+            if show.name == 'Hamilton':
+                fs = 3
+            if show not in shows:
+                shows.append(show)
+        return shows
+"""
 ROUTES
 """
 @bp.route('/bp/get_concert', methods=['POST'])
@@ -218,7 +276,23 @@ def get_concert():
             return json.dumps([o.dump() for o in concerts])
 
 
+@bp.route('/bp/get_shows', methods=['POST'])
+def get_show():
+    if request.method == 'POST':
+        place = request.form['place']
+        start = request.form['start']
+        end = request.form['end']
+        if place == 'london':
+            return redirect(url_for('bp.get_london_shows', start=start, end=end))
+        elif place == 'new york':
+            return redirect(url_for('new-york_shows'))
 
+@bp.route('/bp/get_london_shows/<start>/<end>')
+def get_london_shows(start, end):
+    scrap = Theathre_Scraper()
+    li = scrap.find_shows_in_london(start, end)
+    return jsonify("Hello")
+            
 @bp.route('/bp/try', methods=['GET'])
 def first_try():
     if request.method == 'GET':

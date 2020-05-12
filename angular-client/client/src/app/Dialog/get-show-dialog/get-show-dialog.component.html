@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Movie</h1>
+<div mat-dialog-content style="background-color: white;"class="contentBox">
+<ul *ngFor="let show of data.shows">
+    <li>
+        <a>{{show.name}}</a>
+        <br>
+        <a>{{show.description}}</a>
+        <br>
+        <a>{{show.place}}</a>
+        <br>
+        <a href="{{show.link}}" target="_blank">link</a>
+        <br>
+    </li>
+</ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+  <button *ngIf=isAdd mat-button [mat-dialog-close]="data" cdkFocusInitial >Submit</button>
+</div>

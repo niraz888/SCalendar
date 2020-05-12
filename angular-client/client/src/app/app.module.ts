@@ -24,6 +24,7 @@ import { DeleteDialogComponent } from './Dialog/delete-dialog/delete-dialog.comp
 import { GeneratorComponent } from './generator/generator.component';
 import { GetMovieDialogComponent } from './Dialog/get-movie-dialog/get-movie-dialog.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { GetShowDialogComponent } from './Dialog/get-show-dialog/get-show-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AddEventComponent,
     DeleteDialogComponent,
     GeneratorComponent,
-    GetMovieDialogComponent
+    GetMovieDialogComponent,
+    GetShowDialogComponent
   ],
   imports: [
     BrowserModule,

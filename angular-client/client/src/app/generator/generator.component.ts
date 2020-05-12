@@ -4,6 +4,7 @@ import { ServerService } from '../server.service';
 import { GetMovieDialogComponent } from '../Dialog/get-movie-dialog/get-movie-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EventType } from '../event';
+import { GetShowDialogComponent, Show } from '../Dialog/get-show-dialog/get-show-dialog.component';
 
 @Component({
   selector: 'app-generator',
@@ -78,6 +79,32 @@ export class GeneratorComponent implements OnInit {
   OnConcertSubmit(val: any) {
     var d = 3;
   }
+
+  openTheathreShowDialog(thedata: any) {
+    var lis = [];
+    for (var i = 0; i < thedata.length;i++) {
+      lis.push(new Show(thedata[i].show.name, thedata[i].show.description, thedata[i].show.place, thedata[i].show.link));
+    }
+    const dialogRef = this.dialog.open(GetShowDialogComponent, {
+      width: '450px',
+    
+      data: {shows:lis, start:'', end:''}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+
+      var name = 'movie -' + result.name;
+      var desc = 'see movie with ' + result.name
+      var type = EventType.TvShow;
+      var start = result.start.replace("T", " ") + ":00";
+      var end = result.end.replace("T", " ") + ":00";
+      this.add(name, desc, start, end, type);
+    });
+  }
+
   OnTheathreSubmit(form: any) {
     var place = form.value.place;
     var from = form.value.from.substring(0, 3);
@@ -85,7 +112,7 @@ export class GeneratorComponent implements OnInit {
     this.server.getShows(place, from, until).subscribe((data: any)=> {
       if (data.error) {
       } else {
-        var d  = 3;
+        this.openTheathreShowDialog(data);
       }
     },
       err => {

@@ -21,24 +21,55 @@
             </div>
         </div>
     </div>
-    <mat-spinner style="margin: 1em auto;" *ngIf=isWait></mat-spinner>
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Concert Generator</h5>
             <div>
+                <form [formGroup]="concertControl" (ngSubmit)="OnConcertSubmit(concertControl)">
                 <h2><span>Select genre:</span></h2>
                 <label>Band:</label>
-                <input type="text">
+                <input type="text" formControlName="band">
                 <div>
                         <p> Start </p>
-                      <input type="datetime-local">
+                      <input type="datetime-local" formControlName="start">
                       <br>
                           <p> End </p>
-                        <input type="datetime-local">
+                        <input type="datetime-local" formConrolName="end">
                 </div>
                 <br>
                 <p><span>You selected: </span><b>{{selectControl.value}}</b></p>
                 <button (click)="submit(selectControl.value)">Set Value</button>
+            </form>
+            </div>
+        
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Theathre Shows Generator</h5>
+            <div>
+                <form [formGroup]="TheathreControl" (ngSubmit)="OnTheathreSubmit(TheathreControl)">
+                <h2><span>Select genre:</span></h2>
+                <label>Place:</label>
+                <select class="form-control" formControlName="place">
+                    <option value='london'>London</option>
+                    <option value='new-york'>New York</option>
+                </select>
+                <div>
+                        <p> Start </p>
+                        <select class="form-control" formControlName="from">
+                            <option *ngFor="let m of rangeOptions">{{m}}</option>
+                        </select>
+                      <br>
+                          <p> End </p>
+                          <select class="form-control" formControlName="until">
+                            <option *ngFor="let m of rangeOptions">{{m}}</option>
+                        </select>
+                </div>
+                <br>
+                <p><span>You selected: </span><b>{{selectControl.value}}</b></p>
+                <button type="submit">Set Value</button>
+            </form>
             </div>
         </div>
     </div>

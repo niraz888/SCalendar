@@ -92,4 +92,12 @@ export class ServerService {
     postData.append('until', until);
     return this.http.post(this.secUrl + '/get_concert', postData);
   }
+
+  getShows(place: string, from:string, until:string) {
+    const postData = new FormData();
+    postData.append('place', place);
+    postData.append('start', from);
+    postData.append('end', until);
+    return this.http.post(this.secUrl + '/get_shows', postData);
+  }
 }

@@ -227,9 +227,16 @@ class Theathre_Scraper(object):
         start_index = MAPPER[start]
         end_index = MAPPER[end]
         shows = []
-        for i in range(start_index, end_index):
-            self.init_soup(url, i)
+        i = start_index
+        while i != end_index + 1:
+            res = i % 12
+            if res == 0:
+                res = 12
+                i = 1
+                continue
+            self.init_soup(url, res)
             final = self.scrap(shows)
+            i = i + 1
         return shows
 
     def convert_month(self, month):
@@ -289,7 +296,7 @@ def get_show():
         end = request.form['end']
         if place == 'london':
             return redirect(url_for('bp.get_london_shows', start=start, end=end))
-        elif place == 'new york':
+        elif place == 'new-york':
             return redirect(url_for('bp.get_nyc_shows', start=start, end=end))
 
 @bp.route('/bp/get_london_shows/<start>/<end>')

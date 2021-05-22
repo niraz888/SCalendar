@@ -4,7 +4,8 @@ import { ServerService } from '../server.service';
 import { GetMovieDialogComponent } from '../Dialog/get-movie-dialog/get-movie-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EventType } from '../event';
-import { GetShowDialogComponent, Show } from '../Dialog/get-show-dialog/get-show-dialog.component';
+import {GetShowDialogComponent, Show } from '../Dialog/get-show-dialog/get-show-dialog.component';
+import { Concert, GetConcertDialogComponent } from '../Dialog/get-concert-dialog/get-concert-dialog.component';
 
 @Component({
   selector: 'app-generator',
@@ -76,21 +77,49 @@ export class GeneratorComponent implements OnInit {
     
   }
 
-  OnConcertSubmit(val: any) {
-    var d = 3;
+  OnConcertSubmit(form: any) {
+    var band = form.value.band;
+    var from = form.value.start.split("T")[0];
+    var until = form.value.end.split("T")[0];
+    this.server.getConcerts(band, from, until).subscribe((data:any) => {
+       this.openConcertDialog(data);
+    }, 
+    err=>{ alert(err.error)});
   }
+
+
+
+  openConcertDialog(thedata: any) {
+    var lis = [];
+    for (var i = 0;i < thedata.length;i++) {
+      lis.push(new Concert(thedata[i].concert.city, thedata[i].concert.country, thedata[i].concert.day, thedata[i].concert.month, thedata[i].concert.year, thedata[i].concert.link))
+    }
+
+    const dialogRef = this.dialog.open(GetConcertDialogComponent, {
+      width: '450px',
+    
+      data: {concerts:lis, start:'', end:''}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }});
+  }
+
+
 
   openTheathreShowDialog(thedata: any) {
     var lis = [];
-    for (var i = 0; i < thedata.length;i++) {
-      lis.push(new Show(thedata[i].show.name, thedata[i].show.description, thedata[i].show.place, thedata[i].show.link));
-    }
+      for (var i = 0; i < thedata.length;i++) {
+        lis.push(new Show(thedata[i].show.name, thedata[i].show.description, thedata[i].show.place, thedata[i].show.link));
+      }
+    
     const dialogRef = this.dialog.open(GetShowDialogComponent, {
       width: '450px',
     
       data: {shows:lis, start:'', end:''}
     });
-  
+    
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
@@ -110,23 +139,17 @@ export class GeneratorComponent implements OnInit {
     var from = form.value.from.substring(0, 3);
     var until = form.value.until.substring(0, 3);
     this.server.getShows(place, from, until).subscribe((data: any)=> {
-      if (data.error) {
-      } else {
         this.openTheathreShowDialog(data);
-      }
     },
-      err => {
-        console.log('Error: ' + err.error);
-      });
+    err=>{ alert(err.error)});
 
   }
   submit(val: any) {
     var i = val;
-    let d  = 3;
     this.isWait = true;
     this.server.getMovie(val).subscribe((data: any) =>  {
       if (data.error){
-        var s = 3;
+        alert(data.error.error);
       } else{
         this.isWait = false;
         this.openMovieDialog(data);

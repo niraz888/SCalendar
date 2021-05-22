@@ -23,7 +23,7 @@ class SqlConnection(object):
         try:
             cur.execute("INSERT INTO users (username, password, phone) VALUES ('"+str(username) + "','" + str(password) + "','" + str(phone) + "')")
             self.db.commit()
-        except:
+        except Exception as inst:
             res = Result.PROCESS_ERROR
         finally:
             self.db.close()

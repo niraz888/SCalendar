@@ -24,9 +24,9 @@ export class EditDialogComponent implements OnInit {
   ];
   ngOnInit(): void {
   }
-  onNoClick(): void {
+  onNoClick(action: string): void {
     
-    this.dialogRef.close();
+    this.dialogRef.close(action);
   }
 
   openDeleteDialog(i:  number) {
@@ -42,8 +42,8 @@ export class EditDialogComponent implements OnInit {
         return;
       } else {
         this.onDelete(result.id);
+        this.onNoClick('delete');
       }
-      var d = 3;
       console.log('The dialog was closed');
     });
   }

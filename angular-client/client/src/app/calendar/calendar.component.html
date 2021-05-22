@@ -37,7 +37,8 @@
   <tr>
 
     <td *ngFor="let d of calendar | slice:0:7;index as k;" class="day" >
-      <span class="number" >{{d}}</span>
+      <span *ngIf="d != 0" class="number" >{{d}}</span>
+      <span *ngIf="d != 0" (click)="openAddDialog(d)">  (+)</span>
       <div class="events" >
         <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button class="tool-tip"  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
@@ -49,9 +50,26 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:7:14;" class="day"><span class="number">
+    <td *ngFor="let d of calendar | slice:7:14;index as k;" class="day"><span class="number">
       {{d}}</span>
+      <span (click)="openAddDialog(d)">  (+)</span>
       <div class="events" >
+        <div *ngFor="let e of events;index as k">
+          <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+    </span>
+  </a>
+    </div>
+    
+    </div>
+    
+    </td>
+  </tr>
+  <tr>
+    <td *ngFor="let d of calendar | slice:14:21;index as k;" class="day">
+      <span class="number">{{d}}</span>
+      <span (click)="openAddDialog(d)">  (+)</span>
+      <div class="events">
         <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
           <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
@@ -62,12 +80,13 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:14:21;" class="day">
-      <span class="number">{{d}}</span>
+    <td *ngFor="let d of calendar | slice:21:28;index as k;" class="day"><span class="number">
+      {{d}}</span>
+      <span (click)="openAddDialog(d)">  (+)</span>
       <div class="events">
-        <div *ngFor="let e of events;">
+        <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
-          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
     </div>
@@ -75,12 +94,13 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:21:28;" class="day"><span class="number">
+    <td *ngFor="let d of calendar | slice:28:35;index as k;" class="day"><span *ngIf="d != 0" class="number">
       {{d}}</span>
+      <span *ngIf="d != 0" (click)="openAddDialog(d)">  (+)</span>
       <div class="events">
-        <div *ngFor="let e of events;">
+        <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
-          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
     </div>
@@ -88,12 +108,13 @@
     </td>
   </tr>
   <tr>
-    <td *ngFor="let d of calendar | slice:28:34;" class="day"><span class="number">
+    <td *ngFor="let d of calendar | slice:35:42;index as k;" class="day"><span *ngIf="d != 0" class="number">
       {{d}}</span>
+      <span *ngIf="d != 0" (click)="openAddDialog(d)">  (+)</span>
       <div class="events">
-        <div *ngFor="let e of events;">
+        <div *ngFor="let e of events;index as k">
           <a *ngIf="e.start.getDate() == d" mat-raised-button  matTooltip="{{e.name + ', ' + e.description}}" aria-label="Button that displays a tooltip when focused or hovered over">
-          <span class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
+          <span (click)="openEditDialog(k)" class="dot" [ngStyle]="{'background-color': getColor(e.type)}">
     </span>
   </a>
     </div>

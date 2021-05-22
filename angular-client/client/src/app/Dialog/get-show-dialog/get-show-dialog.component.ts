@@ -34,6 +34,7 @@ export class Show {
     this.link = link;
   }
 }
+
 export interface GetShowsData {
   shows: string[];
 

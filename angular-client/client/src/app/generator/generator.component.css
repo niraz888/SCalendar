@@ -5,3 +5,19 @@
     height: 500px;
     display: inline-block;
 }
+
+.row {
+    margin-top: 5%;
+}
+.row >div  {
+    border: 1px solid grey;
+    padding: 10px 14px 9px auto;
+}
+
+button {
+    margin: 3%;
+}
+
+h3 {
+    margin: 1%;
+}

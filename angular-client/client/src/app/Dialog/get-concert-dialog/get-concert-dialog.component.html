@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Movie</h1>
+<div mat-dialog-content style="background-color: white;"class="contentBox">
+<ul *ngFor="let concert of data.concerts">
+    <li>
+        <a>{{concert.city}}</a>
+        <br>
+        <a>{{concert.country}}</a>
+        <br>
+        <a>{{concert.day }}.{{concert.month}}.{{concert.year}}</a>
+        <br>
+        
+        <a href="{{concert.link}}" target="_blank">link</a>
+        <br>
+        
+    </li>
+</ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" >Cancel</button>
+  <button *ngIf=isAdd mat-button [mat-dialog-close]="data" cdkFocusInitial >Submit</button>
+</div>

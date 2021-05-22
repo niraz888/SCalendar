@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http'
 import { EventType } from './event';
 

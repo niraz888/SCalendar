@@ -1,6 +1,7 @@
 from flask import Flask,Blueprint, jsonify, request
 from utils import SqlConnection, Result
 from werkzeug.security import generate_password_hash
+import json
 api = Blueprint('api', __name__)
 """
 GOOD
@@ -65,10 +66,12 @@ def login():
     res, user_id = con.authenticate_user(username, password)
     if res == Result.SUCCESS:
         return jsonify(user_id)
-    elif res == Result.LOGIC_ERROR:
+    elif res == Result.LOGIC_ERROR or res == Result.PROCESS_ERROR:
         return jsonify('username or password invalid')
     else:
-        return 'Error with Connection'
+        a = {'id': 3, 'name': 'nir'}
+        b = {"id" : 4, 'name':"tamir"}
+        return json.dumps(a)
     
 @api.route('/api/add_event', methods=['POST'])
 def add_event():

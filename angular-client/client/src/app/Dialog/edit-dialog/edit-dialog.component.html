@@ -29,7 +29,7 @@
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()" >Cancel</button>
+  <button mat-button (click)="onNoClick('no')">Cancel</button>
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Edit</button>
   <button mat-button (click)="openDeleteDialog(data.event_id)" >Delete</button>
 </div>

@@ -103,13 +103,14 @@ class Date(object):
         self.full_representation = str(year) + "-" + str(month) + "-" + str(day)
 
 class Concert(object):
-    def __init__(self,year, month, day, city, country):
+    def __init__(self,year, month, day, city, country, link):
         self.date = Date(year, month, day)
         self.city = city
         self.country = country
+        self.link = link
 
     def dump(self):
-        return {"concert" : {'year': self.date.year, 'month': self.date.month, 'day': self.date.day, 'city':self.city, 'country':self.country}}
+        return {"concert" : {'year': self.date.year, 'month': self.date.month, 'day': self.date.day, 'city':self.city, 'country':self.country, 'link':self.link}}
 
 class SongKick_Scraper(object):
     def __init__(self, band):
@@ -154,11 +155,15 @@ class SongKick_Scraper(object):
             place = elm.find("p", {"class" : "secondary-detail"}).text
             where = elm.find("strong", {"class" : "primary-detail"}).text
             arr = where.split(", ")
+            time = elm.find("a").contents[1].attrs['datetime'].split('-')[0]
+            _time = 0
             city = arr[0]
+            if len(arr) == 1:
+                continue
             state = arr[1]
-            link = elm.find("a")['href']
-            concert = Concert('2020', str(MAPPER[month]), day.strip(), city, state)
-            listof.append(concert)
+            link = "https://www.songkick.com/" + elm.find("a")['href']
+            concert = Concert(time, str(MAPPER[month]), day.strip(), city, state, link)
+            list_of_concerts.append(concert)
         d = 3
         return list_of_concerts
     
@@ -235,8 +240,12 @@ class Theathre_Scraper(object):
                 i = 1
                 continue
             self.init_soup(url, res)
-            final = self.scrap(shows)
-            i = i + 1
+            try:
+                final = self.scrap(shows)
+            except Exception as e:
+                continue
+            finally:
+                i = i + 1
         return shows
 
     def convert_month(self, month):
@@ -280,10 +289,10 @@ def get_concert():
         try:
             scrap = SongKick_Scraper(band)
         except Exception as e:
-            return jsonify("No Such Band or No Concert Upcoming")
+            return jsonify("No info about given band"), 400
         concerts = scrap.find_relevant_concerts(from_date, until_date)
         if len(concerts) == 0:
-            return jsonify("No Events in This Time Range")
+            return jsonify("No Events in This Time Range"), 400
         else:
             return json.dumps([o.dump() for o in concerts])
 
@@ -294,10 +303,22 @@ def get_show():
         place = request.form['place']
         start = request.form['start']
         end = request.form['end']
+        url = None
         if place == 'london':
-            return redirect(url_for('bp.get_london_shows', start=start, end=end))
+            url = "https://www.londontheatre.co.uk/whats-on/calendar/"
+            scrap = Theathre_Scraper(True)
+            #return redirect(url_for('bp.get_london_shows', start=start, end=end))
         elif place == 'new-york':
-            return redirect(url_for('bp.get_nyc_shows', start=start, end=end))
+            url = "https://www.newyorktheatreguide.com/whats-on/broadway/calendar/"
+            scrap = Theathre_Scraper(False)
+            #return redirect(url_for('bp.get_nyc_shows', start=start, end=end))
+        try:
+            shows = scrap.find_shows(start, end, url)
+        except Exception as e:
+            return jsonify("Error"), 400
+        if len(shows) == 0:
+            return jsonify("No shows at this time range"), 400
+        return json.dumps([o.dump() for o in shows])
 
 @bp.route('/bp/get_london_shows/<start>/<end>')
 def get_london_shows(start, end):

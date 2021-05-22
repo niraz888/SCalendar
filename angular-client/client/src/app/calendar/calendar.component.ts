@@ -11,7 +11,7 @@ import { AddEventComponent } from '../Dialog/add-event/add-event.component';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-  months = {1 : 31, 2: 28, 3: 31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:30}
+  months = {1 : 31, 2: 28, 3: 31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
   current_year = 0
   current_month = 0
   calendar = []
@@ -29,7 +29,6 @@ export class CalendarComponent implements OnInit {
       if (!result) {
         return;
       }
-      let d = 32;
       if (day_of < 10) {
         var parse_day = "0" + day_of.toString()
       } else{
@@ -68,26 +67,44 @@ export class CalendarComponent implements OnInit {
   openEditDialog(i:  number): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '450px',
-  
-      data: {name:'', description: '', start:'', end:'', type:1, index:i, event_id:this.events[i].getID()}
+      
+      data: {name:this.events[i].name, description: this.events[i].description, start:'', end:'', type:1, index:i, event_id:this.events[i].getID()}
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
+      if (result == 'delete') {
+        this.events.splice(i, 1);
       }
-      this.sendEditEvent(this.events[i].getID(), result.name, result.description, result.start, result.end
+      else if (result == 'no') {
+        return;
+
+      } else {
+        this.sendEditEvent(this.events[i].getID(), result.name, result.description, result.start, result.end
         ,result.type);
-      console.log('The dialog was closed');
+      }
     });
   }
 
+  getIndex(event_id: number) {
+    for (var i = 0; i < this.events.length;i++) {
+      if (this.events[i].event_id == event_id) {
+        return i;
+      }
+    }
+    return -1;
+  }
   sendEditEvent(event_id: number, name:string, desc:string, start:string, end:string, type:EventType) {
     this.server.editEvent(event_id, name, desc, start, end, type).subscribe((data:any) => {
       if (data.error == true){
         alert(data);
       } else {
         alert(data);
+        /*
+        var index = this.getIndex(event_id);
+        this.events[index].name = name;
+        this.events[index].description = desc;
+        this.events[index].type = type;
+        */
       }
     },
     err => {
@@ -107,23 +124,16 @@ export class CalendarComponent implements OnInit {
     }
     var count = this.months[month]
     var j= 1;
-    for(j = 1; j < count + 1;j++) {
+    for(j = 1; j < count+1;j++) {
       this.calendar.push(j)
     } 
+    var k = i + j;
+    while (k % 6 != 0) {
+      this.calendar.push(0);
+      k++;
+    }
 
     this.getCurrentEvents();
-
-    /*
-    var event1 = new Event(2,'mangal', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
-    var event2 = new Event(3,'meeting', 'this is mangal', EventType.business, new Date("2020-04-03 12:30:00"));
-    var event3 = new Event(4,'TvShow', 'this is mangal', EventType.TvShow, new Date("2020-04-01 12:30:00"));
-    var event4 = new Event(5,'mangal2', 'this is mangal', EventType.birthday, new Date("2020-04-03 12:30:00"));
-    this.events.push(event1);
-    this.events.push(event2);
-    this.events.push(event3);
-    this.events.push(event4);
-    */
-
   }
 
  
@@ -138,6 +148,16 @@ export class CalendarComponent implements OnInit {
     for(j = 1; j < count + 1;j++) {
       this.calendar.push(j)
     } 
+    /*
+    for(var k =j; k < 42; k++) {
+      this.calendar.push(0);
+    }
+    */
+    var k = i + j;
+    while (k % 6 != 0) {
+      this.calendar.push(0);
+      k++;
+    }
   }
   forward() {
     this.events = [];
@@ -162,7 +182,6 @@ export class CalendarComponent implements OnInit {
     }
      this.change_month();
      this.getCurrentEvents();
-     var dsas = 33;
   }
 
   getCurrentEvents() {
@@ -197,8 +216,9 @@ export class CalendarComponent implements OnInit {
     },
     err => {
       console.log('Error: ' + err.error);
-    });
-    
+    },
+    () => { console.log("Finish getting");}
+    );
   }
 
   getColor(type:EventType){

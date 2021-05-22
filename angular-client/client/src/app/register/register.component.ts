@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import {NgForm} from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,7 +9,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-constructor(private server:ServerService) { }
+constructor(private server:ServerService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,7 +19,8 @@ constructor(private server:ServerService) { }
           if (data.error == true){
             alert('Error!');
           } else {
-            alert(data[0])
+            alert(data[0]);
+            this.router.navigateByUrl('/login');
           }
         },
         err => {
